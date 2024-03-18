@@ -2,6 +2,7 @@
 import pygame as pg
 from pygame.sprite import Sprite
 from settings import *
+import sys
  
 #Import Sprite Class
 from pygame.sprite import Sprite
@@ -76,7 +77,14 @@ class Player(pg.sprite.Sprite):
             if str(hits[0].__class__.__name__) == "PowerUp":
                 #print(hits[0].__class__.__name__)
                 self.speed += 300
- 
+                
+    def collide_with_Mob(self, group, kill):
+        opponent_collision = pg.sprite.spritecollide(self, group, True)
+        if opponent_collision:
+            if str(opponent_collision[0].__class__.__name__) == "Mob":
+                pg.quit()
+                sys.exit()
+
     #Update player movement
     def update(self):
         self.get_keys()
@@ -90,6 +98,7 @@ class Player(pg.sprite.Sprite):
         self.collide_with_walls('y')
         self.collide_with_group(self.game.coins, True)
         self.collide_with_group(self.game.power_ups, True)
+        self.collide_with_Mob(self.game.mob, False)
  
 #Wall class
 class Wall(pg.sprite.Sprite):
@@ -133,7 +142,7 @@ class Coin(pg.sprite.Sprite):
 
 class Mob(pg.sprite.Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.mobs
+        self.groups = game.all_sprites, game.mob
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
@@ -175,3 +184,5 @@ class Mob(pg.sprite.Sprite):
         self.collide_with_walls('x')
         self.rect.y = self.y
         self.collide_with_walls('y')
+        
+
