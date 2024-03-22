@@ -8,7 +8,6 @@ from random import randint
 from os import path
 from time import sleep
 
- 
 #Game class
 class Game:
     #initialize method and game class
