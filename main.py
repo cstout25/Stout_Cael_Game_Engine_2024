@@ -123,5 +123,15 @@ while True:
      g.run()
      #g.show_go_screen()
  
+def shoot(self):
+    now = pg.time.get_ticks()
+    keys = pg.key.get_pressed()
+    if keys[pg.K_SPACE] and now - self.last_shot > self.shoot_delay:
+        self.last_shot = now
+    bullet = Bullet(self.rect.centerx, self.rect.centery, self.game)
+    self.game.all_sprites.add(bullet)
+    self.game.bullets.add(bullet)
+
+
 #run game
 g.run()

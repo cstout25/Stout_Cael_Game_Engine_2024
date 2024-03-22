@@ -186,3 +186,19 @@ class Mob(pg.sprite.Sprite):
         self.collide_with_walls('y')
         
 
+class Bullet(pg.sprite.Sprite):
+    def __init__(self, x, y, game):
+        pg.sprite.Sprite.__init__(self)
+        self.game = game
+        self.image = pg.Surface((10, 10))  # Adjust bullet size as needed
+        self.image.fill(YELLOW)  # Adjust bullet color
+        self.rect = self.image.get_rect()
+        self.rect.bottom = y
+        self.rect.centerx = x
+        self.speedy = -game.player.bullet_speed  # Adjust bullet speed  
+   
+    def update(self):
+        self.rect.y += self.speedy
+        # Kill the bullet if it moves off the top of the screen
+        if self.rect.bottom < 0:
+            self.kill()
