@@ -22,6 +22,31 @@ class Player(pg.sprite.Sprite):
         self.y = y * TILESIZE
         self.moneybag = 0
         self.speed = 300
+        def load_images(self):
+            self.standing_frames = [self.spritesheet.get_image(0, 0, 32, 32),
+                                self.spritesheet.get_image(32, 0, 32, 32)]
+        for frame in self.standing_frames:
+            frame.set_colorkey(BLACK)
+        self.walk_frames_r = [self.spritesheet.get_image(678, 860, 120, 201),
+                              self.spritesheet.get_image(692, 1458, 120, 207)]
+        self.walk_frames_l = []
+        for frame in self.walk_frames_r:
+            frame.set_colorkey(BLACK)
+            self.walk_frames_l.append(pg.transform.flip(frame, True, False))
+        self.jump_frame = self.spritesheet.get_image(256, 0, 128, 128)
+        self.jump_frame.set_colorkey(BLACK)
+    def animate(self):
+       
+        class Animated_sprite(Sprite):
+            def __init__(self):
+                Sprite.__init__(self)
+            self.spritesheet = Spritesheet(path.join(img_dir, SPRITESHEET))
+            self.load_images()
+            self.image = self.standing_frames[0]
+            self.jumping = False
+            self.walking = False
+            self.current_frame = 0
+            self.last_update = 0
  
     #Input to move player
     #def move(self, dx = 0, dy = 0):
