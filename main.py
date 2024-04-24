@@ -8,6 +8,9 @@ from random import randint
 from os import path
 from time import sleep
 
+
+#Beta Goal: make a baseball game.3w 
+
 #Game class
 class Game:
     #initialize method and game class
