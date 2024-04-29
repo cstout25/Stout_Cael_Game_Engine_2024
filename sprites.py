@@ -70,6 +70,8 @@ class Player(pg.sprite.Sprite):
             self.vy = -self.speed
         if keys[pg.K_DOWN] or keys[pg.K_s]:
             self.vy = self.speed
+        if keys[pg.K_r]:
+            self.activate_shield()  # Activate shield when R key is pressed
         if self.vx != 0 and self.vy !=0:
                 self.vx * 0.7071
                 self.vy * 0.7071
