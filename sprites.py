@@ -26,6 +26,21 @@ class Player(pg.sprite.Sprite):
         self.y = y * TILESIZE
         self.moneybag = 0
         self.speed = 300
+        self.shield_active = False  # Flag to indicate if shield is active
+        self.shield_duration = 1000  # Duration of shield in milliseconds
+        self.shield_timer = 0  # Timer for shield duration
+
+    def activate_shield(self):
+        """Activate the shield."""
+        self.shield_active = True
+        self.shield_timer = pg.time.get_ticks()  # Start the timer
+
+    def update_shield(self):
+        """Update the shield state."""
+        if self.shield_active:
+            # Check if shield duration has passed
+            if pg.time.get_ticks() - self.shield_timer > self.shield_duration:
+                self.shield_active = False  # Deactivate the shield
         def load_images(self):
        
             class Animated_sprite(Sprite):
