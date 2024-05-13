@@ -29,8 +29,9 @@ class Player(pg.sprite.Sprite):
         self.shield_active = False  # Flag to indicate if shield is active
         self.shield_duration = 1000  # Duration of shield in milliseconds
         self.shield_timer = 0  # Timer for shield duration
+        self.dash_duration = 1
 
-    def activate_shield(self):
+    def activate_shield(self): #added from ChatGPT
         """Activate the shield."""
         self.shield_active = True
         self.shield_timer = pg.time.get_ticks()  # Start the timer
@@ -71,7 +72,15 @@ class Player(pg.sprite.Sprite):
         if keys[pg.K_DOWN] or keys[pg.K_s]:
             self.vy = self.speed
         if keys[pg.K_r]:
-            self.activate_shield()  # Activate shield when R key is pressed
+            self.activate_shield()  # Activate shield when R key is pressed. Added from ChatGPT.
+        if keys[pg.K_SPACE]: #speed boost when space key pressed
+            if self.dash_start_time == 0:
+                self.dash_start_time = pg.time.get_ticks()
+            if pg.time.get_ticks() - self.dash_start_time < self.dash_duration * 100:
+                self.vx *= 2
+                self.vy *= 2
+        else:
+            self.dash_start_time = 0
         if self.vx != 0 and self.vy !=0:
                 self.vx * 0.7071
                 self.vy * 0.7071
@@ -109,7 +118,8 @@ class Player(pg.sprite.Sprite):
                 self.moneybag += 1
             if str(hits[0].__class__.__name__) == "PowerUp":
                 #print(hits[0].__class__.__name__)
-                self.speed += 300
+                self.speed += 150 #changed from 
+        
                 
     def collide_with_Mob(self, group, kill):
         opponent_collision = pg.sprite.spritecollide(self, group, True)

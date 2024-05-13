@@ -9,7 +9,7 @@ from os import path
 from time import sleep
 
 
-#Beta Goal: make a baseball game.3w 
+
 
 #Game class
 class Game:
