@@ -73,14 +73,16 @@ class Player(pg.sprite.Sprite):
             self.vy = self.speed
         if keys[pg.K_r]:
             self.activate_shield()  # Activate shield when R key is pressed. Added from ChatGPT.
-        if keys[pg.K_SPACE]: #speed boost when space key pressed
+        if keys[pg.K_SPACE]: #speed boost when space key pressed. got help from Tino.
             if self.dash_start_time == 0:
                 self.dash_start_time = pg.time.get_ticks()
+                self.image.fill(ORANGE)
             if pg.time.get_ticks() - self.dash_start_time < self.dash_duration * 100:
                 self.vx *= 2
-                self.vy *= 2
+                self.vy *= 2     
         else:
             self.dash_start_time = 0
+            self.image.fill(GREEN)
         if self.vx != 0 and self.vy !=0:
                 self.vx * 0.7071
                 self.vy * 0.7071

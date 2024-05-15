@@ -22,6 +22,7 @@ RED = (255, 0, 0)
 BGCOLOR = SKYBLUE
 PURPLE = (255, 0, 255)
 BLUE = (0, 0, 255)
+ORANGE = (255, 165, 0)
 
 
 SPRITESHEET = "clown.png"
