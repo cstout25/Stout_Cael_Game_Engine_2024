@@ -30,6 +30,7 @@ class Player(pg.sprite.Sprite):
         self.shield_duration = 1000  # Duration of shield in milliseconds
         self.shield_timer = 0  # Timer for shield duration
         self.dash_duration = 1
+        self.no_collide = True
 
     def activate_shield(self): #added from ChatGPT
         """Activate the shield."""
@@ -83,6 +84,14 @@ class Player(pg.sprite.Sprite):
         else:
             self.dash_start_time = 0
             self.image.fill(GREEN)
+            self.no_collide = False
+        if keys[pg.K_p]:
+            self.no_collide = True
+            self.collide_with_Mob = False
+            self.image.fill(LIGHTGREY)
+        else:
+            self.no_collide = False
+        
         if self.vx != 0 and self.vy !=0:
                 self.vx * 0.7071
                 self.vy * 0.7071
@@ -143,7 +152,8 @@ class Player(pg.sprite.Sprite):
         self.collide_with_walls('y')
         self.collide_with_group(self.game.coins, True)
         self.collide_with_group(self.game.power_ups, True)
-        self.collide_with_Mob(self.game.mob, False)
+        if self.no_collide == False:
+            self.collide_with_Mob(self.game.mob, False)
  
 #Wall class
 class Wall(pg.sprite.Sprite):
